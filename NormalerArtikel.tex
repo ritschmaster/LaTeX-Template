@@ -1,0 +1,346 @@
+% DIE "REPORT" KLASSE ERLAUBT EINE UNTERSCHEIDUNG ZWISCHEN "CHAPTER" UND
+% "SECTION". DABEI IST DANN "CHAPTER" DER HÖCHSTE PUNKT.
+%
+% DIE "ARTICLE" KLASSE LÄSST DIES NICHT ZU UND SETZT "SECTION" ALS
+% HÖCHSTEN PUNKT.
+\documentclass[a4paper,12pt]{report}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{eurosym} % EUROSYMBOL
+\usepackage{float}
+\usepackage[utf8]{inputenc} % UTF8 ALS CODIERUNG VERWENDEN
+\usepackage{placeins}
+\usepackage[german]{hyperref} % SPRACHE DER REFERNZIERUNGEN
+\usepackage[german]{babel} % SPRACHE DER ÜBERSCHRIFTEN
+\usepackage{listings}
+\usepackage{url}
+\usepackage[version=3]{mhchem}
+\usepackage{fancyhdr}
+\usepackage{makeidx}
+
+% SPEZIELLE BEDINGUNGEN FÜR SEITENRAND, SEITENHÖHE ETC WERDEN MIT DEM
+% FOLGENDEN ANGEPASST:
+\usepackage[margin=1.5cm,vmargin={0pt,1cm}]{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DIE NACHFOLGENDEN 4 ZEILEN SCHALTEN EINE EINRÜCKUNG AUS, SOLLTEN
+% SIE \par VERWENDEN. UM EINE EINRÜCKUNG NACH EINEM ABSATZ ZU BEKOMMEN
+% MÜSSEN SIE DANN \indent VERWENDEN ODER DIESE 4 ZEILEN
+% AUSKOMMENTIEREN/LÖSCHEN.
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% NUMMERIERUNG FÜR UNTERUNTERKAPITEL AUCH EINSCHALTEN:
+\setcounter{secnumdepth}{3}
+
+% % FOLGENDE GRAFIKFORMATE KÖNNEN VERWENDET WERDEN:
+% \DeclareGraphicsExtensions{.pdf,.jpg,.png}
+
+\setlength{\headheight}{2.5cm}
+\setlength{\headsep}{0.5cm}
+\setlength{\textheight}{26cm}
+
+% SPEZIELLE KOPF- UND FUSZZEILE
+\pagestyle{fancy}
+\lhead{AUTORNAME \& ZWEITER AUTORNAME} % LINKSOBEN
+\chead{} % MITTEOBEN
+\rhead{DATUM} % RECHTSOBEN
+\lfoot{MEIN BESCHREIBUNGSITEL} % LINKSUNTEN
+\cfoot{} % MITTEUNTEN
+\rfoot{Seite \thepage} % RECHTSUNTEN
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{MEIN TITEL - MEIN BESCHREIBUNGSITEL}
+\author{AUTORNAME \& ZWEITER AUTORNAME}
+\date{DATUM} % \today GENERIERT AUTOMATISCH DAS HEUTIGE DATUM
+
+% GENERIERT INDEX (FÜGT IN NICHT EIN!)
+\makeindex
+
+\begin{document}
+
+% MIT \maketitle WIRD EINE AUTOMATISCHE TITELSEITE GENERIERT,
+% BASIEREND AUF \title, \author UND \date:
+% \maketitle
+
+% DAS FOLGENDE KOMMANDO GENERIERT EINE EIGENDEFINIERTE TITELSEITE:
+\begin{titlepage}
+  \centering
+  {\scshape\LARGE MEINE FIRMA \par}
+  {\scshape MEINE ABTEILUNG \par}
+  \vspace{1cm}
+  {\scshape\Large MEIN TITEL\par}
+  \vspace{1.5cm}
+  {\huge\bfseries BESCHREIBUNGSTITEL \par}
+
+  \vspace{2cm}
+  {\Large{\itshape AUTORNAME}\par}
+  {DATEN ZUM AUTOR\par}
+  {\par}
+
+  \vspace{2cm}
+  {\Large{\itshape ZWEITER AUTORNAME}\par}
+  {DATEN ZUM ZWEITEN AUTOR\par}
+  {\par}
+
+  % FÜGT WEISZE ZEILEN BIS ZUM UNTEREN SEITENRAND EIN:
+  \vfill
+
+  {\large DATUM\par}
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\listoffigures
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\listoftables
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+
+\chapter{BEISPIELE}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\section{EINFÜHRUNG}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+MIT SECTION WERDEN KAPITEL DEKLARIERT.
+
+ES FOLGT IHR TEXT
+
+\section{EINFACHE FORMATIERUNGEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\textit{SCHRÄGE SCHRIFT} ODER \textbf{FETT GEDRUCKT}. EUROSYMBOL MIT \EUR.
+
+\section{UMBRÜCHE}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+ES FOLGEN 2 ZEILENUMBRÜCHE = 1 LEERZEILE.\\
+\\
+DIESE ZEILE IST NICHT EINGERÜCKT, DA NUR EIN ZEILENUMBRUCH VERWENDET
+WURDE. DIES IST JETZT EIN ABSATZ\par
+ABHÄNGIG VON DER GLOBALEN FORMATIERUNGSANWEISUNG IST DIESE ZEILE NUN
+EINGERÜCKT.
+
+% EINFÜGEN EINER ANDEREN LATEX DATEI:
+\input{Auslagerung.tex}
+
+\subsection{UNTERKAPITEL}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+EIN UNTERKAPITEL WIRD MIT SUBSECTION ERZEUGT
+
+\subsubsection{UNTERUNTERKAPITEL}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\label{sec:unterunterkapitel} % REFERENZIERUNGSANKER, "sec:" MUSS IMMER STEHEN
+EIN UNTERUNTERKAPITEL WIRD MIT SUBSUBSECTION ERZEUGT.
+
+\section{AUFZÄHLUNGEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\label{sec:aufzaehlungen} % REFERENZIERUNGSANKER, "sec:" MUSS IMMER STEHEN
+
+EINE NORMALE AUFZÄHLUNG:
+\begin{itemize}
+\item ERSTENS
+\item ZWEITENS
+\end{itemize}
+
+EINE INDEXIERTE AUFZÄHLUNG:
+\begin{enumerate}
+\item ERSTENS
+\item ZWEITENS
+\end{enumerate}
+
+EINE BESCHREIBENDE AUFZÄHLUNG:
+\begin{description}
+\item[ERNSTENS] 1. TEXT
+  \item[ZWEITENS] 2. TEXT
+\end{description}
+
+\section{ZITIERUNGEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+ZITIERT WIRD MIT CITE, FOLGENDERMAßEN: EIN TEXT\cite{RUTH09}
+
+\section{GRAFIKEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\begin{figure}[H]
+  \centering
+  % WIDTH KANN AUCH IN CM SEIN
+  % \textwidth IST DIE GESAMTE SEITENBREITE
+  % HIER WIRD DIE SEITENBREITE MIT 0.5 MULTIPLIZIERT
+  \includegraphics[width=0.5\textwidth]{image.png}
+  \caption{BESCHREIBUNG UND ZITIERUNG\cite{STEIG}.}
+  \label{fig:image} % REFERNZIERUNGSANKER, "fig:" MUSS IMMER STEHEN
+\end{figure}
+\FloatBarrier % DAMIT BLEIBT "FIGURE" BEIM KAPITEL
+
+\section{TABELLEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+TABELLEN WERDEN MIT ,,tabular'' GENERIERT. DIE ANZAHL DER NACHFOLGENDEN
+BUCHSTABEN GIBT AN, WIEVIELE SPALTEN ES GIBT. DIE BUCHSTABEN HABEN
+EINE BEDEUTUNG:
+\begin{description}
+\item[l] LINKSBÜNDIG
+\item[c] ZENTRIERT
+\item[r] RECHTSBÜNDIG
+\item[\textbar] KEINE SPALTE, SONDERN EINE VERTIKALE LINIE
+  % \textbar IST DAS SYMBOL "|"
+\end{description}
+
+\begin{tabular}{ | l || c r | }
+  1. SPALTEN & 2. SPALTE & 3. SPALTE \\
+  \hline % HORIZONTALE LINIE
+  \hline % HORIZONTALE LINIE
+  1 & 2 & 3 \\
+  \hline % HORIZONTALE LINIE
+  4 & 5 & 6 \\
+  \hline % HORIZONTALE LINIE
+  7 & 8 & 9 \\
+\end{tabular}
+
+UM ,,tabular'' OBJEKTE ZU REFERNZIEREN WIRD ,,table'' BENÖTIGT:
+\begin{table}{h}
+  \caption[GROSZE BESCHREIBUNG]{KLEINE BESCHREIBUNG.}
+  \begin{tabular}{ | l || c r | }
+  1. SPALTEN & 2. SPALTE & 3. SPALTE \\
+  \end{tabular}
+  \label{table:BeispielTabelle}
+\end{table}
+\FloatBarrier % DAMIT BLEIBT "FIGURE" BEIM KAPITEL
+
+NUN KANN MAN ZU ~\autoref{table:BeispielTabelle} VERWEISEN.
+
+\section{QUERVERWEISE}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+REFERENZIERUNG NACH: ~\autoref{sec:unterunterkapitel},
+~\autoref{sec:aufzaehlungen} UND ~\autoref{fig:image}
+
+\section{URL-REFERENZEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+EINE URL KANN SO EINGEFÜGT WERDEN: \url{http://www.free-your-pc.com}
+BZW. \href{http://www.free-your-pc.com}{Free-your-PC}.
+
+\section{PROGRAMMCODE}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\lstinputlisting[language=Python,firstline=1, lastline=1]{MeinProgramm.py}
+
+\begin{lstlisting}
+#include <stdio.h>
+#define N 10
+/* Block
+ * comment */
+
+int main()
+{
+    int i;
+
+    // Line comment.
+    puts("Hello world!");
+
+    return 0;
+}
+\end{lstlisting}
+
+\section{ZITATE}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+\begin{quote}
+  UM ZITATE VON PERSONEN ANZUFÜHREN KANN ,,quote'' VERWENDET WERDEN\\
+  - Richard Paul Bäck
+\end{quote}
+
+\section{CHEMISCHE FORMELN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+AMMONIUMSULPHAT IST \ce{(NH4)2SO4}.
+
+\section{MATHEMATISCHE FORMELN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+ES FOLGEN BEISPIELE MIT MATHEMATISCHEN FORMELN. REFERNZIERUNG AUF GLEICHUNGEN:
+~\autoref{eq:1}, ~\autoref{eq:kreuzprodukt}, ~\autoref{eq:geraden} und
+~\autoref{eq:skalarprodukt}.
+
+\begin{equation}
+  \label{eq:1}
+  \begin{split}
+    fi(x,0) & = -\frac{ln(2)^2}{2^x} \Rightarrow fi(0,1) = -ln(2)^2\\
+            & = -\frac{ln(2) * ln(2)}{2^x} \Rightarrow fi(0,1) = -ln(2)^2
+  \end{split}
+\end{equation}
+
+\subsection{REGELN ZUM KREUZPRODUKT}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+SEIEN $ \vec{a}, \vec{b} \in \mathbb{R}^3 $, DANN GILT:
+\begin{equation}
+  \label{eq:kreuzprodukt}
+  \begin{split}
+    \vec{a} \times \vec{b} \text{ ist normal auf } \vec{a} \text{ und } \vec{b}\\
+    || \vec{a} \times \vec{b} ||^2 = || \vec{a} ||^2 + || \vec{b} ||^2 - <\vec{a}, \vec{b}>^2\\
+    || \vec{a} \times \vec{b} || \text{ ist die Fläche des
+      Parallelogramms, welches durch } \vec{a} \text{ und } \vec{b}
+    \text{ aufgespannt wird}
+  \end{split}
+\end{equation}
+
+\subsection{SCHNITTPUNKT ZWEIER GERADEN}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+UM DEN SCHNITTPUNKT ZWEIER GERADEN ZU ERHALTEN, MÜSSEN GLEICHUNGEN FÜR
+JEDE ACHSE ERSTELLT WERDEN.
+
+\begin{equation}
+  \label{eq:geraden}
+  \begin{split}
+    g(t) :=
+    \begin{pmatrix}
+      a_1 \\ b_1 \\ c_1
+    \end{pmatrix}
+    +
+    t \cdot
+    \begin{pmatrix}
+      ar_1 \\ br_1 \\ cr_1
+    \end{pmatrix}
+    \\
+    h(t) :=
+    \begin{pmatrix}
+      a_2 \\ b_2 \\ c_2
+    \end{pmatrix}
+    +
+    t \cdot
+    \begin{pmatrix}
+      ar_2 \\ br_2 \\ cr_2
+    \end{pmatrix}
+    \\
+    x: a_1 + t_1 \cdot ar_1 = a_2 + t_1 \cdot ar_2\\
+    y: b_1 + t_1 \cdot br_1 = b_2 + t_1 \cdot br_2\\
+    z: c_1 + t_1 \cdot cr_1 = c_2 + t_1 \cdot cr_2
+  \end{split}
+\end{equation}
+
+\subsection{SKALARPRODUKT}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+MIT $ \vec{a}, \vec{b} \in \mathbb{R}^n $ UND
+$ \alpha \in \mathbb{R} $, WOBEI $ \alpha $ DER WINKEL IST, DER DURCH
+$ \vec{a} $ UND $ \vec{b} $ EINGESCHLOSSEN IST:
+\begin{equation}
+  \label{eq:skalarprodukt}
+  \begin{split}
+    <\vec{a},\vec{b}> & = \sum_{i = 0}^n a_i \cdot b_i \\
+    & = ||\vec{a}|| \cdot ||\vec{b}|| \cdot cos(\alpha) \\
+    \\
+    \Leftrightarrow cos(\alpha) = \frac{<\vec{a},\vec{b}>}{||\vec{a}|| \cdot ||\vec{b}||}
+  \end{split}
+\end{equation}
+
+\bibliographystyle{alpha} % SETZT DIE FORMATIERUNGART DER LITERATURLISTE
+% MÖGLICHE ARTEN SEHEN SIE HIER:
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management#Bibliography_styles
+
+% SETZT DIE VERWENDETE LITERATURLISTE
+% "MeineLiteraturliste" VERWEIST AUF DIE DATEI "MeineLiteraturliste.bib"
+% DAHER ÄNDERT SICH DAS IMMER
+\bibliography{MeineLiteraturliste}
+\thispagestyle{fancy} % ANDERNFALLS WERDEN KOPF-/FUSZEILEN NICHT VERWENDET
+
+\printindex % FÜGT DEN GENERIERTEN INDEX EIN
+\thispagestyle{fancy}
+
+
+\end{document}
